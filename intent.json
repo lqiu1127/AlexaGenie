@@ -1,0 +1,234 @@
+{
+  "intents": [
+    {
+      "name": "addBudgetIntent",
+      "samples": [
+        "add {amount} dollars to budget",
+        "add {amount} dollars",
+        "increase budget by {amount} dollars"
+      ],
+      "slots": [
+        {
+          "name": "amount",
+          "type": "AMAZON.NUMBER",
+          "samples": [
+            "{amount}"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addToWishListIntent",
+      "samples": [
+        "add {AddItem} to wish list",
+        "put {AddItem} in my wish list",
+        "add {AddItem} to my wish list",
+        "put {AddItem} in wish list"
+      ],
+      "slots": [
+        {
+          "name": "AddItem",
+          "type": "AMAZON.Animal",
+          "samples": [
+            "{AddItem}"
+          ]
+        },
+        {
+          "name": "amount",
+          "type": "AMAZON.NUMBER",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": []
+    },
+    {
+      "name": "buyFromWishListIntent",
+      "samples": [
+        "what can I buy from my wish list",
+        "what I can get from wish list"
+      ],
+      "slots": []
+    },
+    {
+      "name": "getBudgetIntent",
+      "samples": [
+        "what's my current budget",
+        "get my current budget",
+        "get my budget",
+        "how much money do I have",
+        "what's my budget"
+      ],
+      "slots": []
+    },
+    {
+      "name": "getWishListIntent",
+      "samples": [
+        "what's in my wish list",
+        "get my wish list",
+        "what did I put in my wish list"
+      ],
+      "slots": []
+    },
+    {
+      "name": "removeWishListItemIntent",
+      "samples": [
+        "remove {removeItem} from wish list",
+        "take out {removeItem} from wish list",
+        "get rid of {removeItem} from wish list",
+        "delete {removeItem} from wish list"
+      ],
+      "slots": [
+        {
+          "name": "removeItem",
+          "type": "AMAZON.Animal",
+          "samples": [
+            "{removeItem}"
+          ]
+        }
+      ]
+    }
+  ],
+  "prompts": [
+    {
+      "id": "Elicit.Intent-addBudgetIntent.IntentSlot-amount",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "How much?"
+        }
+      ]
+    },
+    {
+      "id": "Confirm.Intent-addToWishListIntent",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "Are you sure?"
+        }
+      ]
+    },
+    {
+      "id": "Elicit.Intent-addToWishListIntent.IntentSlot-AddItem",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "What would you like to add?"
+        }
+      ]
+    },
+    {
+      "id": "Confirm.Intent-addToWishListIntent.IntentSlot-AddItem",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "Adding {AddItem} to Wish List, is that okay?"
+        }
+      ]
+    },
+    {
+      "id": "Elicit.Intent-removeWishListItemIntent.IntentSlot-removeItem",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "What do you want to remove?"
+        }
+      ]
+    },
+    {
+      "id": "Confirm.Intent-removeWishListItemIntent.IntentSlot-removeItem",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "Are you sure you want to remove {removeItem}"
+        }
+      ]
+    }
+  ],
+  "dialog": {
+    "version": "1.0",
+    "intents": [
+      {
+        "name": "addBudgetIntent",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "amount",
+            "type": "AMAZON.NUMBER",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-addBudgetIntent.IntentSlot-amount"
+            }
+          }
+        ]
+      },
+      {
+        "name": "addToWishListIntent",
+        "confirmationRequired": true,
+        "prompts": {
+          "confirm": "Confirm.Intent-addToWishListIntent"
+        },
+        "slots": [
+          {
+            "name": "AddItem",
+            "type": "AMAZON.Animal",
+            "elicitationRequired": true,
+            "confirmationRequired": true,
+            "prompts": {
+              "elicit": "Elicit.Intent-addToWishListIntent.IntentSlot-AddItem",
+              "confirm": "Confirm.Intent-addToWishListIntent.IntentSlot-AddItem"
+            }
+          },
+          {
+            "name": "amount",
+            "type": "AMAZON.NUMBER",
+            "elicitationRequired": false,
+            "confirmationRequired": false,
+            "prompts": {}
+          }
+        ]
+      },
+      {
+        "name": "removeWishListItemIntent",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "removeItem",
+            "type": "AMAZON.Animal",
+            "elicitationRequired": true,
+            "confirmationRequired": true,
+            "prompts": {
+              "elicit": "Elicit.Intent-removeWishListItemIntent.IntentSlot-removeItem",
+              "confirm": "Confirm.Intent-removeWishListItemIntent.IntentSlot-removeItem"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
